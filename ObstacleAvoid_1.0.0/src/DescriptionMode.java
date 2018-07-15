@@ -138,7 +138,7 @@ public class DescriptionMode extends GameViewFX{
 		btn.setFocusTraversable(false);//ボタンにフォーカスが当たるとキーイベントが正常に動かない
 		getChildren().add(btn);
 
-		//三角形の作成
+		//三角形の作成(次のページと前のページへのボタン)
 		nextTri = new Polygon(
 				510,160,
 				480,120,

@@ -72,7 +72,7 @@ public class DescriptionMode extends GameViewFX{
 		pager.add(new TextAnimationView(dur, "マウスで敵やブロック、\nプレイヤーキャラクター等を\n左クリックすることで、特定の\nアクションを実行させることができます。\n右クリックは強制で、\nプレイヤーキャラをジャンプさせます。", clr, f));
 		pager.add(new TextAnimationView(dur, "敵キャラはジャンプで踏みつけて\n倒すことができます。\n踏みつける時にジャンプボタンを\n押下していると、\n踏みつけハイジャンプができます。", clr, f));
 		pager.add(new TextAnimationView(dur, "アイテムのネギを取得すると\nプレイヤーの走行速度が上がります。\n反対に敵からダメージを受けると\n走行速度が下がります。", clr, f));
-		pager.add(new TextAnimationView(dur, "すごい適当ですが、以上でゲーム説明は\n終了です。\n\n特殊コマンド\nESCキー・・・ゲーム終了\nENTER・・・フルスクリーンモード\nフルスクリーンは環境次第でバグりそう。", clr, f));
+		pager.add(new TextAnimationView(dur, "すごい適当ですが、以上でゲーム説明は\n終了です。", clr, f));
 		pager.setAutoNextPageDuration(Duration.seconds(2));
 		pager.doPlayNowPage();
 

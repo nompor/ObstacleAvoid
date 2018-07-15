@@ -44,6 +44,13 @@ public class AppManager {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+
+		//効果音フォルダの中身を全ロード
+		try (DirectoryStream<Path> ds = Files.newDirectoryStream(Paths.get("se"))){
+			ds.forEach(p -> GTKManagerFX.loadSE(p.toString()));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 
 	//画像を読み込む

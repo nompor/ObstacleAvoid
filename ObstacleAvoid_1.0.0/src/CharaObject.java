@@ -19,9 +19,6 @@ public abstract class CharaObject extends GameObject {
 	//地上にいるかどうか
 	protected boolean isGround;
 
-	//壁に当たったかどうか
-	protected boolean isWall;
-
 	public CharaObject(Node viewNode, Node hitNode) {
 		super(viewNode, hitNode);
 		positionInit();

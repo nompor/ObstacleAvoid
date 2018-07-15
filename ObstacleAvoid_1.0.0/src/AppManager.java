@@ -23,6 +23,11 @@ public class AppManager {
 		GTKManagerFX.loopBGM("bgm/title.mp3");
 	}
 
+	//効果音を再生する
+	public static void playSE(String fileName) {
+		GTKManagerFX.playSE("se/"+fileName+".mp3");
+	}
+
 	//ゲームBGMの停止
 	public static void gameBGMStop() {
 		GTKManagerFX.stopBGM();

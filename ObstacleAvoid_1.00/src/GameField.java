@@ -26,7 +26,7 @@ public class GameField {
 	}
 
 	//ブロックリストを取得します
-	public Field[][] getBlockList() {
+	public Field[][] getFieldList() {
 		return fields;
 	}
 

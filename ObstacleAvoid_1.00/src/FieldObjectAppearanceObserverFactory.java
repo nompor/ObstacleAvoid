@@ -31,23 +31,19 @@ public class FieldObjectAppearanceObserverFactory {
 	//初期データ生成メソッド（カメラ付近の領域に存在するすべてを出現チェックする）
 	public void init() {
 		//生成したオブジェクトはFieldObjectManagerに追加されていく
-		double minX = camera.getLeft();
 		double maxX = camera.getRight();
 
 		//左右の追加対象インデックスを取得
-		int addChkIdxX_L = (int) (minX - 100) / FieldObject.W;
 		int addChkIdxX_R = (int) (maxX + 100) / FieldObject.W;
 
 		//配列のインデックスが限界値を越えていた場合は端のインデックスに変更
-		if ( addChkIdxX_L < 0 ) addChkIdxX_L = 0;
-		if ( addChkIdxX_L >= data[0].length ) addChkIdxX_L = data[0].length - 1;
 		if ( addChkIdxX_R < 0 ) addChkIdxX_R = 0;
 		if ( addChkIdxX_R >= data[0].length ) addChkIdxX_R = data[0].length - 1;
 
 		//出現すべきであるなら出現処理を行います
 		for ( int i = 0;i < data.length;i++ ) {
 			int y=i*FieldObject.H;
-			for ( int j = addChkIdxX_L;j <= addChkIdxX_R;j++ ) {
+			for ( int j = 0;j <= addChkIdxX_R;j++ ) {
 				FieldObject fo = data[i][j];
 				if (fo != null) {
 					int x = j*FieldObject.W;
@@ -87,53 +83,21 @@ public class FieldObjectAppearanceObserverFactory {
 
 		//生成したオブジェクトはFieldObjectManagerに追加されていく
 		FixedTargetCamera2DFX camera = (FixedTargetCamera2DFX) this.camera;
-		double minX = camera.getLeft();
 		double maxX = camera.getRight();
 
 		//左右の追加対象インデックスを取得
-		int addChkIdxX_L = (int) (minX - 100) / FieldObject.W;
 		int addChkIdxX_R = (int) (maxX + 100) / FieldObject.W;
 
 		//左右の配列のインデックスの座標を計算
-		int x_L=addChkIdxX_L*FieldObject.W;
 		int x_R=addChkIdxX_R*FieldObject.W;
 
 		//配列のインデックスが限界値を越えていた場合は負の数を代入し、処理無効とする
-		if ( addChkIdxX_L >= data[0].length ) addChkIdxX_L = -1;
 		if ( addChkIdxX_R >= data[0].length ) addChkIdxX_R = -1;
 
 		//出現すべきであるなら出現処理を行います
 		for ( int i = 0;i < data.length;i++ ) {
-			FieldObject fo_L = addChkIdxX_L < 0 ? null : data[i][addChkIdxX_L];
 			FieldObject fo_R = addChkIdxX_R < 0 ? null : data[i][addChkIdxX_R];
 			int y=i*FieldObject.H;
-
-			if (fo_L != null) {
-				switch(fo_L.TYPE) {
-				case BLOCK:
-				case FIELD:
-					//ブロックやフィールドが表示されていなくて、破壊済みでない場合は追加
-					Field fld = objMng.getField().getField(i, addChkIdxX_L);
-					if ( !fld.isAlive && !fld.isDelete ) {
-						objMng.addField(fld);
-					}
-					break;
-				case ENEMY:
-					objMng.addEnemy(createEnemy(fo_L, x_L, y));
-
-					//次回以降表示されないようにnull代入
-					data[i][addChkIdxX_L] = null;
-					break;
-				case ITEM:
-					//アイテムなら新たに生成して表示処理
-					objMng.addItem(createItem(fo_L, x_L, y));
-
-					//次回以降表示されないようにnull代入
-					data[i][addChkIdxX_L] = null;
-				default:
-					break;
-				}
-			}
 
 			if ( fo_R != null ) {
 				switch(fo_R.TYPE) {
@@ -414,8 +378,8 @@ public class FieldObjectAppearanceObserverFactory {
 	public void setFieldObject(FieldObject fo, int i, int j){
 		data[i][j] = fo;
 		switch(fo.TYPE) {
-		case BLOCK:objMng.getField().getBlockList()[i][j]=createBlock(fo,  j*Block.W, i*Block.H);break;
-		case FIELD:objMng.getField().getBlockList()[i][j]=createField(fo,  j*Block.W, i*Block.H);break;
+		case BLOCK:objMng.getField().getFieldList()[i][j]=createBlock(fo,  j*Block.W, i*Block.H);break;
+		case FIELD:objMng.getField().getFieldList()[i][j]=createField(fo,  j*Block.W, i*Block.H);break;
 		default:
 			break;
 		}

@@ -56,7 +56,7 @@ public class GameField {
 		chara.isAir = true;
 		chara.isGround = false;
 
-		//画面端である場合は壁に当たったものとする
+		//画面端である場合は壁に当たったものとし、押し戻し
 		if ( b.getMaxX() > maxX ) {
 			chara.moveX(maxX - b.getMaxX());
 		}

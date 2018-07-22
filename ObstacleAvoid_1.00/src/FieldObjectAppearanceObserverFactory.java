@@ -275,7 +275,7 @@ public class FieldObjectAppearanceObserverFactory {
 		return new Effect(img);
 	}
 
-	public Item createItem(FieldObject fo, double x, double y) {
+	public static Item createItem(FieldObject fo, double x, double y) {
 
 		Item item = null;
 		switch(fo) {

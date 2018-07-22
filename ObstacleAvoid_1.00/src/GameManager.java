@@ -207,7 +207,7 @@ public class GameManager extends GameSceneFX{
 		return isGameOver;
 	}
 
-	//ゲームオブジェクトが画面外かどうか
+	//ゲームオブジェクトが画面内かどうか
 	public boolean isObjectInWindow(GameObject go) {
 		double l = camera.getLeft() - 200;
 		double t = camera.getTop() - 200;

@@ -1,14 +1,14 @@
 
+import static com.nompor.gtk.fx.GTKManagerFX.*;
+
 import com.nompor.gtk.fx.GTKManagerFX;
 import com.nompor.gtk.fx.GameViewFX;
 import com.nompor.gtk.fx.animation.ImageAnimationView;
 import com.nompor.gtk.fx.image.ImageManagerFX;
-import com.nompor.gtk.fx.input.KeyCodeManagerFX;
 
 import javafx.animation.Animation;
 import javafx.application.Application;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.KeyCode;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 import javafx.util.Duration;
@@ -28,8 +28,8 @@ public class Test2 extends Application {
 		GTKManagerFX.changeView(new GameViewFX() {
 
 			ImageManagerFX imgMng = GTKManagerFX.getImageManager();
-			KeyCodeManagerFX keyMng = GTKManagerFX.getKeyCodeManager();
 			Player p;
+			Enemy e;
 			GameField fields;
 
 			@Override
@@ -78,47 +78,51 @@ public class Test2 extends Application {
 					}
 				}
 
-				//プレイヤーキャラ作成
-				ImageAnimationView view = GTKManagerFX.createImageAnimationView(Duration.millis(500), imgMng.getImage("img/mogmol.png"), 50, 50);//表示ノード
+				//プレイヤーの作成
+				ImageAnimationView view = createImageAnimationView(Duration.millis(500), imgMng.getImage("img/mogmol.png"), 50, 50);//表示ノード
 				view.setCycleCount(Animation.INDEFINITE);
 				view.setIndex(0);
-				Rectangle rect = new Rectangle(10,10,30,37);//当たり判定
+				Rectangle rect = new Rectangle(10,510,30,37);//当たり判定
+				view.setTranslateY(500);
 				p = new Player(view, rect);
+				view.play();
 
 				//プレイヤーの表示
 				getChildren().add(p.getViewNode());
 
-				//キーの登録
-				keyMng.regist(KeyCode.LEFT);
-				keyMng.regist(KeyCode.RIGHT);
-				keyMng.regist(KeyCode.Z);
+				//敵の作成
+				ImageAnimationView img = createImageAnimationView(Duration.millis(300), imgMng.getImage("img/slime.png"),50,50);//表示ノード
+				img.setCycleCount(Animation.INDEFINITE);
+				img.setIndex(0);
+				Rectangle r = new Rectangle(300+8,550+26,35,20);//当たり判定
+				img.setTranslateX(300);
+				img.setTranslateY(550);
+				e = new Slime(img, r);
+
+				//敵表示
+				getChildren().add(e.getViewNode());
 			}
 
 			@Override
 			public void process() {
 				//ゲームループ
+				move(p);
+				move(e);
+			}
 
-				if ( keyMng.isPress(KeyCode.Z)) {
-					//ジャンプしたなら落下速度を逆にする
-					p.fallSpeed = -15;
-				} else {
-					//落下速度アップ
-					p.fallSpeed++;
-				}
-				p.moveY(p.fallSpeed);//上下移動
-				if ( keyMng.isDown(KeyCode.LEFT) ) {
-					//左へ移動
-					p.moveX(-3);
-				} else if ( keyMng.isDown(KeyCode.RIGHT) ) {
-					//右へ移動
-					p.moveX(3);
-				}
+			private void move(CharaObject o) {
+				o.moveX(1.5);
+				o.moveY(7);
 
 				//ウィンドウ表示領域より下に行ったら止まるようにする
-				double y = p.getHitNode().getBoundsInParent().getMaxY();
+				double y = o.getHitNode().getBoundsInParent().getMaxY();
 				if(y>=HEIGHT) {
-					p.moveY(-(y-HEIGHT));
+					o.moveY(-(y-HEIGHT));
+					o.isGround = true;
+				} else {
+					o.isGround = false;
 				}
+				o.isAir = !o.isGround;
 			}
 		});
 	}

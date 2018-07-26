@@ -26,7 +26,7 @@ public class Test4 extends Application {
 			@Override
 			public void start() {
 
-				//ワールド領域2000*2000に合わせて二次元配列構築
+				//ワールド領域2000*1200に合わせて二次元配列構築
 				final int MAX_W=2000,MAX_H=1200;
 				final int ROW=MAX_H/50,COL=MAX_W/50;
 				Field[][] field = new Field[ROW][COL];

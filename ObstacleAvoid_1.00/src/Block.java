@@ -20,14 +20,14 @@ public class Block extends Field {
 		Bounds b = node.getBoundsInParent();
 		Bounds mvb = mvNode.getBoundsInParent();
 
-		if ( mvb.getMaxY() >= b.getMinY() && mv.preb <= b.getMinY() ) {
+		if ( mv.preb <= b.getMinY() ) {
 			//キャラがブロックの上側から突っ込んだ場合めり込んだ分キャラを上にずらす
 			mv.moveY(-(mvb.getMaxY() - b.getMinY()));
 			mv.isGround = true;
-		} else if ( mvb.getMinY() <= b.getMaxY() && mv.pret >= b.getMaxY() ) {
+		} else if ( mv.pret >= b.getMaxY() ) {
 			//キャラがブロックの下側から突っ込んだ場合めり込んだ分キャラを下にずらす
 			mv.moveY(b.getMaxY() - mvb.getMinY());
-		} else if ( mvb.getMaxX() >= b.getMinX() && mv.prer <= b.getMinX() ) {
+		} else if ( mv.prer <= b.getMinX() ) {
 			//キャラがブロックの左側から突っ込んだ場合めり込んだ分キャラを左にずらす
 			mv.moveX(-(mvb.getMaxX() - b.getMinX()));
 		}

@@ -1,0 +1,5 @@
+#GTK_WRITE_PROPERTY
+#Wed Aug 08 21:43:37 JST 2018
+debug=0
+auto_right_mode=1
+full_screen=0

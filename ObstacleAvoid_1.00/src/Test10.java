@@ -7,7 +7,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 
-public class TestAll extends Application {
+public class Test10 extends Application {
 
 	public static void main(String[] args) {
 		launch(args);
